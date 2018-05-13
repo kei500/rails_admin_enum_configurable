@@ -4,7 +4,7 @@ module RailsAdminEnumConfigurable
   extend ActiveSupport::Concern
 
   module ClassMethods
-    @@enum_attribtues = []
+    @@enum_attribtues = {}
 
     def enum(definitions)
       # call super first because super deletes :_prefix and :_suffix (these are unnecessary) from definitions.
