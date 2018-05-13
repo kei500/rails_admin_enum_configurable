@@ -1,4 +1,4 @@
-require "rails_admin_enum_configurable/version"
+require 'rails_admin_enum_configurable/version'
 
 module RailsAdminEnumConfigurable
   extend ActiveSupport::Concern
