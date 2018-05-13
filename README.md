@@ -1,8 +1,7 @@
 # RailsAdminEnumConfigurable
+[![Gem Version](https://badge.fury.io/rb/rails_admin_enum_configurable.png)](http://badge.fury.io/rb/rails_admin_enum_configurable)
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/rails_admin_enum_configurable`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+RailsAdminEnumConfigurable is a concern that provides useful methods when use enum in RailsAdmin.
 
 ## Installation
 
@@ -22,7 +21,17 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+If you want to use an enum in RailsAdmin, according to [RailsAdmin's document](https://github.com/sferik/rails_admin/wiki/Enumeration), you have to prepare a `xxx_enum` method (xxx is attribute name which uses enum). But if you include `RailsAdminEnumConfigurable`, you don't need to do that.
+
+```ruby
+class User < ActiveRecord::Base
+  include RailsAdminEnumConfigurable
+  
+  enum status: { active: 1, supended: 2, deleted: 3 }
+end
+```
+
+That's all! You can use enum in RailsAdmin. In the above, `User#status_enum` will create dynamically.
 
 ## Development
 
