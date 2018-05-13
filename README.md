@@ -24,7 +24,7 @@ Or install it yourself as:
 If you want to use an enum in RailsAdmin, according to [RailsAdmin's document](https://github.com/sferik/rails_admin/wiki/Enumeration), you have to prepare a `xxx_enum` method (xxx is attribute name which uses enum). But if you include `RailsAdminEnumConfigurable`, you don't need to do that.
 
 ```ruby
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   include RailsAdminEnumConfigurable
   
   enum status: { active: 1, supended: 2, deleted: 3 }
