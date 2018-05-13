@@ -3,6 +3,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'rails_admin_enum_configurable/version'
 
 Gem::Specification.new do |spec|
+  spec.add_dependency 'activesupport', '>= 4.0.0'
   spec.name          = 'rails_admin_enum_configurable'
   spec.version       = RailsAdminEnumConfigurable::VERSION
   spec.authors       = ['Kei Tsuchiya']
