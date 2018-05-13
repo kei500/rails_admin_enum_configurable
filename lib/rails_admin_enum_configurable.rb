@@ -4,8 +4,24 @@ module RailsAdminEnumConfigurable
   extend ActiveSupport::Concern
 
   module ClassMethods
+    @@enum_attribtues = []
+
+    def enum(definitions)
+      super
+      @@enum_attribtues[self.to_s.underscore] ||= []
+      @@enum_attribtues[self.to_s.underscore].push(definitions.keys.first)
+    end
+
+    def enum_attributes
+      @@enum_attribtues[self.to_s.underscore] || []
+    end
+
+    def enum_method?(name)
+      name.to_s.end_with?('_enum') && enum_attributes.include?(name.to_s.match(/(.+)_enum/)[1].to_sym)
+    end
+
     def method_missing(name)
-      if name.to_s.end_with?('_enum') && respond_to?(name.to_s.match(/(.+)_enum/)[1].pluralize)
+      if enum_method?(name)
         attribute = name.to_s.match(/(.+)_enum/)[1]
         if self.send(attribute.pluralize).is_a?(::Hash)
           self.send(attribute.pluralize).keys.map{|k| [I18n.t("enums.#{self.to_s.underscore}.#{attribute}.#{k}"), k]}.to_h
@@ -20,19 +36,11 @@ module RailsAdminEnumConfigurable
     end
 
     def respond_to?(name, include_all = false)
-      if name.to_s.end_with?('_enum') && respond_to?(name.to_s.match(/(.+)_enum/)[1].pluralize)
-        true
-      else
-        super
-      end
+      enum_method?(name) || super
     end
 
     def respond_to_missing?(name, include_all = false)
-      if name.to_s.end_with?('_enum') && respond_to?(name.to_s.match(/(.+)_enum/)[1].pluralize)
-        true
-      else
-        super
-      end
+      enum_method?(name) || super
     end
   end
 end
