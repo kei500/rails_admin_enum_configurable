@@ -31,7 +31,7 @@ class User < ApplicationRecord
 end
 ```
 
-That's all! You can use enum in RailsAdmin. In the above, `User#status_enum` will create dynamically.
+That's all! You can use enum in RailsAdmin. In the above, `User#status_enum` will be created dynamically.
 
 ## Development
 
