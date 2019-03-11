@@ -25,9 +25,9 @@ module RailsAdminEnumConfigurable
       if enum_method?(name)
         attribute = name.to_s.match(/(.+)_enum/)[1]
         if self.send(attribute.pluralize).is_a?(::Hash)
-          self.send(attribute.pluralize).keys.map{|k| [I18n.t("enums.#{self.to_s.underscore}.#{attribute}.#{k}"), k]}.to_h
+          self.send(attribute.pluralize).keys.map{|k| [I18n.t("enums.#{self.to_s.underscore}.#{attribute}.#{k}", default: k), k]}.to_h
         elsif self.send(attribute.pluralize).is_a?(::Array)
-          self.send(attribute.pluralize).map{|k| I18n.t("enums.#{self.to_s.underscore}.#{attribute}.#{k}")}
+          self.send(attribute.pluralize).map{|k| I18n.t("enums.#{self.to_s.underscore}.#{attribute}.#{k}", default: k)}
         else
           raise "Unknown enum type. attribute: #{attribute}, type: #{self.send(attribute.pluralize).class}"
         end
